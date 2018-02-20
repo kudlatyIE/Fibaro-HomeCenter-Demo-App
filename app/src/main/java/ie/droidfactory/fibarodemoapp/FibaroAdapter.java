@@ -80,6 +80,7 @@ public class FibaroAdapter extends RecyclerView.Adapter<FibaroAdapter.FibaroAdap
 
         if(FibaroType.DEVICE==fibaroType){
             Device dev = (Device)mList.get(position);
+            holder.objectName.setText(dev.getName());
             holder.deviceType.setText(dev.getType());
             holder.deviceValue.setText(dev.getProperties().getValue());
         }
