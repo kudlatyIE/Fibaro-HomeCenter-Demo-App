@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by kudlaty on 2018-02-18.
  */
 
-public class Section {
+public class Section implements FibaroObject{
 
     private int id;
     private String name;
@@ -42,15 +42,15 @@ public class Section {
 
         return result;
     }
-
+    @Override
     public int getId() {
         return id;
     }
-
+    @Override
     public String getName() {
         return name;
     }
-
+    @Override
     public int getSortOrder() {
         return sortOrder;
     }

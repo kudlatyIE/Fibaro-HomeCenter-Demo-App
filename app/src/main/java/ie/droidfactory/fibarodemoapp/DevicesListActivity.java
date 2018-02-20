@@ -12,22 +12,20 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ie.droidfactory.fibarodemoapp.model.Device;
+import ie.droidfactory.fibarodemoapp.model.FibaroType;
 import ie.droidfactory.fibarodemoapp.retrofit.FibaroService;
 import ie.droidfactory.fibarodemoapp.retrofit.FibaroServiceDevice;
 import ie.droidfactory.fibarodemoapp.retrofit.RetrofitServiceFactory;
-import ie.droidfactory.fibarodemoapp.utils.FibaroSharedPref;
-import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
-public class DevicesListActivity extends AppCompatActivity implements DevicesAdapter.DeviceAdapterOnClickHandler{
+public class DevicesListActivity extends AppCompatActivity implements FibaroAdapter.DeviceAdapterOnClickHandler{
 
     private static final String TAG = DevicesListActivity.class.getSimpleName();
-    private DevicesAdapter mDevicetAdapter;
+    private FibaroAdapter mDevicetAdapter;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -35,21 +33,28 @@ public class DevicesListActivity extends AppCompatActivity implements DevicesAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_list);
 
+        //TODO: use ID to filter devices for selected room
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            int id = extras.getInt(RoomActivity.ROOM_ID);
+            Log.d(TAG, "received  room ID: "+id);
+        }else Log.d(TAG, "missing bundle room ID");
+
         mRecyclerView = (RecyclerView) findViewById(R.id.device_recyclerview);
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mDevicetAdapter = new DevicesAdapter(this, this);
+        mDevicetAdapter = new FibaroAdapter(this, this, FibaroType.DEVICE);
         mRecyclerView.setAdapter(mDevicetAdapter);
 
         getDevices(FibaroService.getCredentials());
     }
 
     @Override
-    public void onClick(int deviceId) {
-        Toast.makeText(getApplicationContext(), "clicked at dev ID: "+deviceId, Toast.LENGTH_SHORT).show();
+    public void onClick(int objectId) {
+        Toast.makeText(getApplicationContext(), "clicked at dev ID: "+objectId, Toast.LENGTH_SHORT).show();
     }
 
     private void getDevices(String credentials){
@@ -73,11 +78,11 @@ public class DevicesListActivity extends AppCompatActivity implements DevicesAda
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Log.d(TAG, e.getMessage());
-                        Intent intent = new Intent();
-                        intent.putExtra("error", e.getMessage());
-                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
+//                        Intent intent = new Intent();
+//                        intent.putExtra("error", e.getMessage());
+//                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+//                        setResult(Activity.RESULT_OK, intent);
+//                        finish();
                     }
 
                     @Override

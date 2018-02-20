@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.squareup.okhttp.Credentials;
 
 import ie.droidfactory.fibarodemoapp.model.Info;
+import ie.droidfactory.fibarodemoapp.model.Section;
 import ie.droidfactory.fibarodemoapp.retrofit.FibaroService;
 import ie.droidfactory.fibarodemoapp.retrofit.FibaroServiceInfo;
 import ie.droidfactory.fibarodemoapp.retrofit.RetrofitServiceFactory;
@@ -60,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     if(checkSave.isChecked()){
                         FibaroSharedPref.setCredentials(MainActivity.this, createCredentials(user, pass));
+                        //TODO: TEMP - TEST
+                        FibaroService.setCredentials(createCredentials(user, pass));
                     }else {
                         FibaroService.setCredentials(createCredentials(user, pass));
                     }
-                    Intent intent = new Intent(MainActivity.this, DevicesListActivity.class);
+                    Intent intent = new Intent(MainActivity.this, SectionActivity.class);
                     startActivityForResult(intent, REQUEST_CODE);
                 }
             }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by kudlaty on 2018-02-18.
  */
 
-public class Device {
+public class Device implements FibaroObject{
 
     private int id;
     private String name;
@@ -57,11 +57,11 @@ public class Device {
         }
         return list;
     }
-
+    @Override
     public int getId() {
         return id;
     }
-
+    @Override
     public String getName() {
         return name;
     }
@@ -73,7 +73,7 @@ public class Device {
     public int getRoomID() {
         return roomID;
     }
-
+    @Override
     public int getSortOrder() {
         return sortOrder;
     }
