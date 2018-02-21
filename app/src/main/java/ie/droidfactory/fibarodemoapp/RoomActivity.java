@@ -69,7 +69,6 @@ public class RoomActivity extends AppCompatActivity implements FibaroAdapter.Dev
 
                     @Override
                     public void onCompleted() {
-                        Log.d(TAG, "completed, filtered sections list size: "+Room.getRoomsList());
                         mFibaroAdapter.swapDevicesList(Room.getRoomsList());
                     }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="adapter_item_width">-1.0px</dimen> <!-- match_parent -->
+    <dimen name="adapter_item_height">84dp</dimen>
+
+
+</resources>

@@ -5,8 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/adapter_item_width"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingBottom="12dp"
     android:paddingLeft="16dp"
@@ -15,30 +16,48 @@
     android:background="@color/gray_marker"
     tools:context=".DevicesListActivity">
 
+    <!--
+    android:layout_width="@dimen/adapter_item_width"
+    -->
 
-    <TextView
-        android:id="@+id/tv_deviceName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/devicee_list_header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="DEVICE NAME"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:text="VALUE"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_deviceName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_deviceName" />
+        <TextView
+            android:id="@+id/tv_deviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:text="DEVICE NAME"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_weight="1"
+            android:layout_gravity="end"
+            android:gravity="end"
+
+            android:text="VALUE"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+             />
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/device_recyclerview"
@@ -51,8 +70,7 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_deviceName" />
-
+        app:layout_constraintTop_toBottomOf="@+id/devicee_list_header" />
 
 
 

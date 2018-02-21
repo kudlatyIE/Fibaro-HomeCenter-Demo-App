@@ -33,7 +33,7 @@ public class FibaroAdapter extends RecyclerView.Adapter<FibaroAdapter.FibaroAdap
     final private DeviceAdapterOnClickHandler mClickHandler;
 
     /**
-     * interface that receives fibaro object section/room/device ID .
+     * interface receives fibaro object section/room/device ID .
      */
     public interface DeviceAdapterOnClickHandler {
         void onClick(int objectId);
@@ -125,6 +125,7 @@ public class FibaroAdapter extends RecyclerView.Adapter<FibaroAdapter.FibaroAdap
             int adapterPosition = getAdapterPosition();
 
             int id = mList.get(adapterPosition).getId();
+            //test..
             Log.d(TAG, "click item name: "+mList.get(adapterPosition).getName());
             mClickHandler.onClick(id);
 

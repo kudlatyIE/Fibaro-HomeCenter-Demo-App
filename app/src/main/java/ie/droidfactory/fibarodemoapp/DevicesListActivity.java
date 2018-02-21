@@ -60,7 +60,6 @@ public class DevicesListActivity extends AppCompatActivity implements FibaroAdap
     private void getDevices(String credentials){
         FibaroServiceDevice service = RetrofitServiceFactory.createRetrofitService(FibaroServiceDevice.class, FibaroService.SERVICE_ENDPOINT, credentials);
 
-        //TODO: implement filter for binary & dimmable light
         service.getDevices()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -68,8 +67,6 @@ public class DevicesListActivity extends AppCompatActivity implements FibaroAdap
 
                     @Override
                     public void onCompleted() {
-                        Log.d(TAG, "completed, filtered devices list size: "+Device.getDevicesList().size());
-
                         mDevicetAdapter.swapDevicesList(Device.getDevicesList());
 
                     }
@@ -78,11 +75,11 @@ public class DevicesListActivity extends AppCompatActivity implements FibaroAdap
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Log.d(TAG, e.getMessage());
-//                        Intent intent = new Intent();
-//                        intent.putExtra("error", e.getMessage());
-//                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-//                        setResult(Activity.RESULT_OK, intent);
-//                        finish();
+                        Intent intent = new Intent();
+                        intent.putExtra("error", e.getMessage());
+                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
                     }
 
                     @Override

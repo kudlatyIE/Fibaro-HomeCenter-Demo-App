@@ -64,7 +64,6 @@ public class SectionActivity extends AppCompatActivity implements FibaroAdapter.
 
                     @Override
                     public void onCompleted() {
-                        Log.d(TAG, "completed, filtered sections list size: "+Section.getSestionsList());
                         mFibaroAdapter.swapDevicesList(Section.getSestionsList());
                     }
 
