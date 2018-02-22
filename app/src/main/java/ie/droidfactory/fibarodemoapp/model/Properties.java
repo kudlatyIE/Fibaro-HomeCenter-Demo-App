@@ -21,4 +21,16 @@ public class Properties {
     public String getValue() {
         return value;
     }
+
+    public void setDead(String dead) {
+        this.dead = dead;
+    }
+
+    public void setDisabled(String disabled) {
+        this.disabled = disabled;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

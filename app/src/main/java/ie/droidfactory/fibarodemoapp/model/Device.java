@@ -17,8 +17,8 @@ public class Device implements FibaroObject{
     private Properties properties;
     private Actions actions;
 
-    private static final String KEY_DOMM="dimmable_light";
-    private static final String KEY_BINARY="binary_light";
+    public static final String KEY_DOMM="dimmable_light";
+    public static final String KEY_BINARY="binary_light";
 
     private static ArrayList<Device> devicesList;
 
@@ -47,12 +47,13 @@ public class Device implements FibaroObject{
         return result;
     }
 
-    public static ArrayList<Device> filerDeviceList(ArrayList<Device> oldList){
+    public static ArrayList<Device> filerDeviceList(ArrayList<Device> oldList, int roomId){
 
         ArrayList<Device> list = new ArrayList<>();
         for(Device d: oldList){
             if(d.getType().equals(KEY_BINARY) || d.getType().equals(KEY_DOMM)){
-                list.add(d);
+                if(roomId<0) list.add(d);
+                else if(d.getRoomID()==roomId) list.add(d);
             }
         }
         return list;

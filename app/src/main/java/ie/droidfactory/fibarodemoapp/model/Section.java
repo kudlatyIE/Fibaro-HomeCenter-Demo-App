@@ -12,6 +12,11 @@ public class Section implements FibaroObject{
     private String name;
     private int sortOrder;
 
+    private Section(int id, String name, int sortOrder){
+        this.id=id;
+        this.name=name;
+        this.sortOrder=sortOrder;
+    }
     private static ArrayList<Section> sectionsList;
 
     public static void addSection(Section section){
@@ -26,6 +31,13 @@ public class Section implements FibaroObject{
     }
     public static void setSectionsList(ArrayList<Section> list){
         sectionsList=list;
+        addShowAllItem();
+    }
+
+    private static void addShowAllItem(){
+        if(sectionsList!=null){
+            sectionsList.add(new Section(-1, "show all rooms", -1));
+        }
     }
 
 

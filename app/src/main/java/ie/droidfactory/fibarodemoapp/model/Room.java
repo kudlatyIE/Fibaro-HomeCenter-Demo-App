@@ -15,6 +15,13 @@ public class Room implements FibaroObject{
 
     private static ArrayList<Room> roomsList;
 
+    private Room(int id, String name, int sectionId, int sortOrder){
+        this.id=id;
+        this.name=name;
+        this.sectionID=sectionId;
+        this.sortOrder=sortOrder;
+    }
+
 
     //test only!
     public static String printList(){
@@ -23,18 +30,30 @@ public class Room implements FibaroObject{
             for (Room s: roomsList){
                 result = result.concat("\nID:\t"+s.getId()
                         +"\nNAME:\t"+s.getName()
-                        +"\nORDER:\t"+s.getSortOrder());
+                        +"\nSECTION_INDEX:\t"+s.sectionID);
             }
         }else result = result.concat(" is NULL");
 
         return result;
     }
 
-    public static void setRoomsList(ArrayList<Room> roomsList) {
-        Room.roomsList = roomsList;
+
+    public static void setRoomsList(ArrayList<Room> roomsList, int sectionID) {
+        if(sectionID<0) Room.roomsList = roomsList;
+        else {
+            ArrayList<Room> list = new ArrayList<>();
+            for (Room r: roomsList){
+                if(r.getSectionID()==sectionID) list.add(r);
+            }
+            Room.roomsList=list;
+        }
+        addRoom(new Room(-1, "show all devices", -1, -1));
+
     }
 
-    public static void addRoom(Room room){
+
+
+    private static void addRoom(Room room){
         if(roomsList==null) roomsList = new ArrayList<>();
         roomsList.add(room);
     }

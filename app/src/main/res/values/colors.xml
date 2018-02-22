@@ -6,5 +6,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorGood">#4CAF50</color>
     <color name="colorBad">#F44336</color>
-    <color name="gray_marker">#dddddd</color>
+    <color name="gray_marker">#DDDDDD</color>
+    <color name="colorAlertRed">#EF0000</color>
+    <color name="colorDisableGreyLight">#BABABA</color>
+    <color name="colorDisableGreyDark">#686868</color>
 </resources>
