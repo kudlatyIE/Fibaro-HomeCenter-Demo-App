@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/devices_detail_vertical_padding"
+    android:paddingEnd="@dimen/fibaro_medium_padding"
+    android:paddingLeft="@dimen/fibaro_medium_padding"
+    android:paddingRight="@dimen/fibaro_medium_padding"
+    android:paddingStart="@dimen/fibaro_medium_padding"
+    android:paddingTop="@dimen/devices_detail_vertical_padding"
+    tools:context=".InfoActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/info_horizontal_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <TextView
+            android:id="@+id/info_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_small_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info_text_serialNumber_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_medium_padding"
+            style="@style/DetailLabel"
+            android:text="serial No"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_text_title" />
+
+        <TextView
+            android:id="@+id/info_text_mac_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_small_padding"
+            style="@style/DetailLabel"
+            android:text="MAC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_text_serialNumber_label" />
+
+        <TextView
+            android:id="@+id/info_text_softVersion_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_small_padding"
+            style="@style/DetailLabel"
+            android:text="software ver"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_text_mac_label" />
+
+        <TextView
+            android:id="@+id/info_text_beta_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_small_padding"
+            style="@style/DetailLabel"
+            android:text="beta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_text_softVersion_label" />
+
+        <TextView
+            android:id="@+id/info_text_zwaveVer_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_small_padding"
+            style="@style/DetailLabel"
+            android:text="zwaveVersion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_text_beta_label" />
+
+        <TextView
+            android:id="@+id/info_text_serverStatus_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_small_padding"
+            style="@style/DetailLabel"
+            android:text="serverStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_text_zwaveVer_label" />
+
+        <TextView
+            android:id="@+id/info_text_serialNo_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_small_padding"
+            style="@style/DeviceDetails"
+            android:text="serial value"
+            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintTop_toTopOf="@+id/info_text_serialNumber_label" />
+
+        <TextView
+            android:id="@+id/info_text_mac_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_mini_padding"
+            style="@style/DeviceDetails"
+            android:text="mac value"
+            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintTop_toTopOf="@+id/info_text_mac_label" />
+
+        <TextView
+            android:id="@+id/info_text_softVareVer_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_mini_padding"
+            style="@style/DeviceDetails"
+            android:text="softVer value"
+            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintTop_toTopOf="@+id/info_text_softVersion_label" />
+
+        <TextView
+            android:id="@+id/info_text_beta_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_mini_padding"
+            style="@style/DeviceDetails"
+            android:text="beta value"
+            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintTop_toTopOf="@+id/info_text_beta_label" />
+
+        <TextView
+            android:id="@+id/info_text_zwaveVersion_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_mini_padding"
+            style="@style/DeviceDetails"
+            android:text="zwaveVer value"
+            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintTop_toTopOf="@+id/info_text_zwaveVer_label" />
+
+        <TextView
+            android:id="@+id/info_text_serverStatus_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fibaro_mini_padding"
+            style="@style/DeviceDetails"
+            android:text="serverStat value"
+            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintTop_toTopOf="@+id/info_text_serverStatus_label" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

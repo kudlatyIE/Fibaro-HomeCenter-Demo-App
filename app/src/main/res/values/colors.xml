@@ -3,11 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPrimaryLight">#7986CB</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--<color name="colorAccent">#FF4081</color>-->
+    <color name="colorAccent">#303F9F</color>
     <color name="colorGood">#4CAF50</color>
     <color name="colorBad">#F44336</color>
     <color name="gray_marker">#DDDDDD</color>
     <color name="colorAlertRed">#EF0000</color>
     <color name="colorDisableGreyLight">#BABABA</color>
     <color name="colorDisableGreyDark">#686868</color>
+    <color name="colorFabGreen">#00A423</color>
 </resources>

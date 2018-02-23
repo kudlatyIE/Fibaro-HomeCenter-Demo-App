@@ -22,7 +22,8 @@
         <activity android:name=".DevicesListActivity" />
         <activity android:name=".SectionActivity" />
         <activity android:name=".RoomActivity" />
-        <activity android:name=".DeviceDetailsActivity"></activity>
+        <activity android:name=".DeviceDetailsActivity" />
+        <activity android:name=".InfoActivity"></activity>
     </application>
 
 </manifest>

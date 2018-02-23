@@ -31,9 +31,9 @@ public class Section implements FibaroObject{
     }
     public static void setSectionsList(ArrayList<Section> list){
         sectionsList=list;
-        addShowAllItem();
     }
 
+    //test - for all rooms
     private static void addShowAllItem(){
         if(sectionsList!=null){
             sectionsList.add(new Section(-1, "show all rooms", -1));

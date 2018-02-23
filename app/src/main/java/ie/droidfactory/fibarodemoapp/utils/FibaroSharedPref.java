@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
+ * save userName & password basic authentication credentials
  * Created by kudlaty on 2018-02-19.
  */
 

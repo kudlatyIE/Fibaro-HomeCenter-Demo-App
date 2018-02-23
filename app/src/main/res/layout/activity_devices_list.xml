@@ -16,9 +16,6 @@
     android:background="@color/gray_marker"
     tools:context=".DevicesListActivity">
 
-    <!--
-    android:layout_width="@dimen/adapter_item_width"
-    -->
 
     <LinearLayout
         android:id="@+id/devicee_list_header"

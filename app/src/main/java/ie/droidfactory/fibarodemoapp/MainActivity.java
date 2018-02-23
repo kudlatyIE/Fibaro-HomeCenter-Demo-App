@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private CheckBox checkSave;
     private EditText editUserName, editPassword;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setTitle(getResources().getString(R.string.title_login));
 
         tvInfo = findViewById(R.id.text_main_info);
         tvOutput = findViewById(R.id.text_main_output);
@@ -48,35 +56,45 @@ public class MainActivity extends AppCompatActivity {
         checkSave = findViewById(R.id.checkBox_main_saveCredentials);
         editUserName = findViewById(R.id.edit_main_userName);
         editPassword = findViewById(R.id.edit_main_password);
+        tvInfo.setVisibility(View.INVISIBLE);
 
-        if(isInternetOn(this))getInfo();
-        else tvOutput.setText("please turn on internet connection");
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String user = editUserName.getText().toString();
-                String pass = editPassword.getText().toString();
-                if(user.length()==0 || pass.length()==0) tvOutput.setText("user name or password can't be empty");
-                else {
-                    if(checkSave.isChecked()){
-                        FibaroSharedPref.setCredentials(MainActivity.this, createCredentials(user, pass));
-                        //TODO: TEMP - TEST
-                        FibaroService.setCredentials(createCredentials(user, pass));
-                    }else {
-                        FibaroService.setCredentials(createCredentials(user, pass));
-                    }
-                    Intent intent = new Intent(MainActivity.this, SectionActivity.class);
-                    startActivityForResult(intent, REQUEST_CODE);
-                }
+        if(isInternetOn(this)){
+            intent = new Intent(MainActivity.this, SectionActivity.class);
+            String credentials = FibaroSharedPref.getCredentials(this);
+            if(credentials!=null){
+                FibaroService.setCredentials(credentials);
             }
-        });
+            if(credentials!=null){
+                startActivityForResult(intent, REQUEST_CODE);
+            }else {
+                btnLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String user = editUserName.getText().toString();
+                        String pass = editPassword.getText().toString();
+                        if(user.length()==0 || pass.length()==0) tvOutput.setText(R.string.username_pass_request);
+                        else {
+                            if(checkSave.isChecked()){
+                                FibaroSharedPref.setCredentials(MainActivity.this, createCredentials(user, pass));
+                            }
+                            FibaroService.setCredentials(createCredentials(user, pass));
+                            startActivityForResult(intent, REQUEST_CODE);
+                        }
+                    }
+                });
+            }
+
+        }
+        else tvOutput.setText(R.string.turn_on_internet);
+
+
+
 
     }
     @Override
     protected void onRestart() {
         super.onRestart();
-//        clearFields();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -86,9 +104,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("error");
                 tvOutput.setText(result);
-
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                // do nothing
+                FibaroSharedPref.setCredentials(this, null);
 
             }
             clearFields();
@@ -98,33 +114,6 @@ public class MainActivity extends AppCompatActivity {
     private void clearFields(){
         editPassword.setText("");
         editUserName.setText("");
-    }
-
-    private void getInfo(){
-        FibaroServiceInfo service = RetrofitServiceFactory.createRetrofitService(FibaroServiceInfo.class, FibaroService.SERVICE_ENDPOINT, null);
-        service.getInfo()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Info>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "onCompleted...");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        tvOutput.setText(e.getMessage());
-
-                    }
-
-                    @Override
-                    public void onNext(Info info) {
-                        Log.d(TAG, "onNext...");
-                        tvOutput.setText(info.toString());
-
-                    }
-                });
     }
 
     private String createCredentials(String userName, String pass){
@@ -138,5 +127,31 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
+    }
+    @Override
+    public void onBackPressed() {
+        new ExitDialog(this).showExit().show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_not_loged, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                new ExitDialog(this).showExit().show();
+                return true;
+            case R.id.menu_item_info:
+                startActivity(new Intent(this, InfoActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

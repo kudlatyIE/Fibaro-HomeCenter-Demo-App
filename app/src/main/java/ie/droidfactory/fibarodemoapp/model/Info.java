@@ -20,19 +20,18 @@ public class Info {
         private boolean updateBetaAvailable;
         private boolean batteryLowNotification;
 
-        public String toString(){
-
-            return "serialNumber:\t"+serialNumber
-                    +"\nmac:\t"+mac
-                    +"\nsoftVersion:\t"+softVersion
-                    +"\nbeta\t"+beta
-                    +"\nzwaveVersion:\t"+zwaveVersion
-                    +"\nserverStatus:\t"+serverStatus;
+        private static Info info;
 
 
-        }
+    public static Info getInfo() {
+        return info;
+    }
 
-        public String getSerialNumber() {
+    public static void setInfo(Info info) {
+        Info.info = info;
+    }
+
+    public String getSerialNumber() {
             return serialNumber;
         }
 

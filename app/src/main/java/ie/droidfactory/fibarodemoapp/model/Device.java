@@ -30,23 +30,12 @@ public class Device implements FibaroObject{
         Device.devicesList = devicesList;
     }
 
-    //test only!
-    public static String printList(){
-        String result="DEVICES:";
-        if(devicesList!=null){
-            for (Device d: devicesList){
-                result = result.concat("\nID:\t"+d.getId()
-                        +"\nNAME:\t"+d.getName()
-                        +"\nTYPE:\t"+d.getType()
-                        +"\nPROP_DEAD:\t"+d.getProperties().getDead()
-                        +"\nPROP_DISABLE:\t"+d.getProperties().getDisabled()
-                        +"\nPROP_VALUE:\t"+d.getProperties().getValue());
-            }
-        }else result = result.concat(" is NULL");
-
-        return result;
-    }
-
+    /**
+     * filter for binary and dimmable devices
+     * @param oldList
+     * @param roomId
+     * @return
+     */
     public static ArrayList<Device> filerDeviceList(ArrayList<Device> oldList, int roomId){
 
         ArrayList<Device> list = new ArrayList<>();

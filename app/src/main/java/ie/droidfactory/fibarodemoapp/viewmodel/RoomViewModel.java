@@ -57,10 +57,7 @@ public class RoomViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ArrayList<Room> rooms) {
-                        Log.d(TAG, "downloaded rooms list size: "+rooms.size());
-
                         Room.setRoomsList(rooms, Section.getSestionsList().get(objectIndex).getId());
-                        Log.d(TAG, "full rooms:\n"+Room.printList());
                     }
                 });
     }

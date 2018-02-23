@@ -1,6 +1,7 @@
 package ie.droidfactory.fibarodemoapp.model;
 
 /**
+ * not used...
  * Created by kudlaty on 2018-02-18.
  */
 

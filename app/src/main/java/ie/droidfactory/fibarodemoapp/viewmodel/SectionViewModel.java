@@ -48,8 +48,6 @@ public class SectionViewModel extends ViewModel {
 
                     @Override
                     public void onCompleted() {
-                        Log.d(TAG, "completed, filtered sections list size: "+Section.getSestionsList());
-//                        mFibaroAdapter.swapDevicesList(Section.getSestionsList());
                         mutableLiveData.setValue(Section.getSestionsList());
 
                     }
@@ -67,10 +65,7 @@ public class SectionViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ArrayList<Section> sections) {
-                        Log.d(TAG, "downloaded devices list size: "+sections.size());
-
                         Section.setSectionsList(sections);
-                        Log.d(TAG, Section.printList());
                     }
                 });
     }

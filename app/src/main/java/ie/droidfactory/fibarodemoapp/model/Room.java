@@ -23,19 +23,6 @@ public class Room implements FibaroObject{
     }
 
 
-    //test only!
-    public static String printList(){
-        String result="SECTIONS:";
-        if(roomsList!=null){
-            for (Room s: roomsList){
-                result = result.concat("\nID:\t"+s.getId()
-                        +"\nNAME:\t"+s.getName()
-                        +"\nSECTION_INDEX:\t"+s.sectionID);
-            }
-        }else result = result.concat(" is NULL");
-
-        return result;
-    }
 
 
     public static void setRoomsList(ArrayList<Room> roomsList, int sectionID) {
@@ -47,7 +34,8 @@ public class Room implements FibaroObject{
             }
             Room.roomsList=list;
         }
-        addRoom(new Room(-1, "show all devices", -1, -1));
+        //test only to display all rooms
+//        addRoom(new Room(-1, "show all devices", -1, -1));
 
     }
 

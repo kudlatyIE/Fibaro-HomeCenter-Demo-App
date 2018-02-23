@@ -27,7 +27,6 @@ public class RetrofitServiceFactory {
             @Override
             public Request authenticate(Proxy proxy, Response response) throws IOException {
                 if(mCounter++>0){
-//                    throw new FibaroAuthenticationException(FibaroException.INVALID_LOGIN);
                     return null;
                 }
                 return response.request().newBuilder().header("Authorization", credentials ).build();

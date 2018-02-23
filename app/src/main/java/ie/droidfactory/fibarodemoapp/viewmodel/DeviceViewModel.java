@@ -34,13 +34,10 @@ public class DeviceViewModel extends ViewModel{
         return mutableLiveData;
     }
 
-    //TODO: test it....
     public void updateDevice(String credenials, int deviceIndex, String value){
         mutableLiveData.getValue().get(deviceIndex).getProperties().setValue(value);
-//        mutableLiveData.postValue();
     }
 
-    //TODO: add device update method!!!!
 
 
     private void loadDevices(String credentials, final int objectIndex){
@@ -64,7 +61,6 @@ public class DeviceViewModel extends ViewModel{
 
                     @Override
                     public void onNext(ArrayList<Device> devices) {
-                        Log.d(TAG, "downloaded devices list size: "+devices.size());
                         Device.setDevicesList(Device.filerDeviceList(devices, Room.getRoomsList().get(objectIndex).getId()));
                     }
                 });

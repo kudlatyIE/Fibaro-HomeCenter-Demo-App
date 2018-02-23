@@ -5,9 +5,7 @@
 
     <dimen name="devices_detail_horizontal_padding">32dp</dimen>
     <dimen name="devices_detail_vertical_padding">16dp</dimen>
-    <dimen name="fibaro_medium_padding">32dp</dimen>
-    <dimen name="fibaro_small_padding">16dp</dimen>
-    <dimen name="fibaro_mini_padding">8dp</dimen>
-
-
+    <dimen name="fibaro_medium_padding">42dp</dimen>
+    <dimen name="fibaro_small_padding">24dp</dimen>
+    <dimen name="fibaro_mini_padding">16dp</dimen>
 </resources>

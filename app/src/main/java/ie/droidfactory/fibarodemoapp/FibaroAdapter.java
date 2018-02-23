@@ -38,7 +38,7 @@ public class FibaroAdapter extends RecyclerView.Adapter<FibaroAdapter.FibaroAdap
     final private DeviceAdapterOnClickHandler mClickHandler;
 
     /**
-     * interface receives fibaro object section/room/device ID .
+     * interface receives fibaro object section/room/device ID (now index) .
      */
     public interface DeviceAdapterOnClickHandler {
         void onClick(int objectIndex);
@@ -97,8 +97,9 @@ public class FibaroAdapter extends RecyclerView.Adapter<FibaroAdapter.FibaroAdap
             holder.objectName.setText(dev.getName());
             holder.deviceType.setText(dev.getType());
 
-            //TODO: neet to be fixed - colors and values....
-
+            /*
+            parse and set value and imageView background drawable for ON/OFF
+             */
             if(dev.getProperties().getValue().equals("0")){
                 value = "OFF";
                 setBackgroudDrawable(holder.imgValue, mContext, R.drawable.shape_rectangle_grey);
@@ -156,8 +157,7 @@ public class FibaroAdapter extends RecyclerView.Adapter<FibaroAdapter.FibaroAdap
         }
 
         /**
-         * fetch the ID of object that has been selected and call click handler
-         * UPDATE: fetch index of selected item!!!!
+         * fetch index of selected item
          * @param v - clicked View
          */
         @Override

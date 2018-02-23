@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">FibaroDemoApp</string>
+
+    <string name="device_name_label">Name</string>
+    <string name="device_location_label">Location</string>
+    <string name="device_type_label">Type</string>
+    <string name="menu_item_info">HC2 info</string>
+    <string name="menu_item_logout">logout</string>
+    <string name="title_sestions_all">sections: all</string>
+    <string name="title_login">Home Center</string>
+    <string name="title_section_name">in section: </string>
+    <string name="title_room_name">in room: </string>
+    <string name="title_device_details">device details</string>
+    <string name="turn_on_internet">please turn on internet connection</string>
+    <string name="username_pass_request">user name or password can\'t be empty</string>
+    <string name="user_name">user name</string>
+    <string name="password">password</string>
+    <string name="login">LOGIN</string>
+    <string name="save_password">save password?</string>
+    <string name="data_not_available">data not available</string>
+
 </resources>
