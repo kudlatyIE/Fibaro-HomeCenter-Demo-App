@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
+
         <include
             android:id="@+id/device_details_display_settings"
             layout="@layout/device_details_settings"
