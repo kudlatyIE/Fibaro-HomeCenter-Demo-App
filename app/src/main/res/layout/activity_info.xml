@@ -7,6 +7,7 @@
     android:layout_width="@dimen/adapter_item_width"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
+    android:background="@color/gray_marker"
     android:paddingBottom="@dimen/devices_detail_vertical_padding"
     android:paddingEnd="@dimen/fibaro_medium_padding"
     android:paddingLeft="@dimen/fibaro_medium_padding"
@@ -21,7 +22,7 @@
         android:layout_gravity="center_horizontal">
 
         <android.support.constraint.Guideline
-            android:id="@+id/info_horizontal_middle"
+            android:id="@+id/info_vertical_middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="@dimen/fibaro_small_padding"
-            android:layout_marginTop="@dimen/fibaro_small_padding"
+            android:layout_marginTop="@dimen/fibaro_medium_padding"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:text="title"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,10 +111,10 @@
             android:id="@+id/info_text_serialNo_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fibaro_small_padding"
+            android:layout_marginStart="@dimen/fibaro_mini_padding"
             style="@style/DeviceDetails"
             android:text="serial value"
-            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintStart_toStartOf="@+id/info_vertical_middle"
             app:layout_constraintTop_toTopOf="@+id/info_text_serialNumber_label" />
 
         <TextView
@@ -123,7 +124,7 @@
             android:layout_marginStart="@dimen/fibaro_mini_padding"
             style="@style/DeviceDetails"
             android:text="mac value"
-            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintStart_toStartOf="@+id/info_vertical_middle"
             app:layout_constraintTop_toTopOf="@+id/info_text_mac_label" />
 
         <TextView
@@ -133,7 +134,7 @@
             android:layout_marginStart="@dimen/fibaro_mini_padding"
             style="@style/DeviceDetails"
             android:text="softVer value"
-            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintStart_toStartOf="@+id/info_vertical_middle"
             app:layout_constraintTop_toTopOf="@+id/info_text_softVersion_label" />
 
         <TextView
@@ -143,7 +144,7 @@
             android:layout_marginStart="@dimen/fibaro_mini_padding"
             style="@style/DeviceDetails"
             android:text="beta value"
-            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintStart_toStartOf="@+id/info_vertical_middle"
             app:layout_constraintTop_toTopOf="@+id/info_text_beta_label" />
 
         <TextView
@@ -153,7 +154,7 @@
             android:layout_marginStart="@dimen/fibaro_mini_padding"
             style="@style/DeviceDetails"
             android:text="zwaveVer value"
-            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintStart_toStartOf="@+id/info_vertical_middle"
             app:layout_constraintTop_toTopOf="@+id/info_text_zwaveVer_label" />
 
         <TextView
@@ -163,7 +164,7 @@
             android:layout_marginStart="@dimen/fibaro_mini_padding"
             style="@style/DeviceDetails"
             android:text="serverStat value"
-            app:layout_constraintStart_toStartOf="@+id/info_horizontal_middle"
+            app:layout_constraintStart_toStartOf="@+id/info_vertical_middle"
             app:layout_constraintTop_toTopOf="@+id/info_text_serverStatus_label" />
 
     </android.support.constraint.ConstraintLayout>

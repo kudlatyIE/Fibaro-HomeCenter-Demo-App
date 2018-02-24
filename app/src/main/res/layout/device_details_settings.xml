@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/fibaro_medium_padding"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:text="Set a new value"
             app:layout_constraintEnd_toEndOf="parent"

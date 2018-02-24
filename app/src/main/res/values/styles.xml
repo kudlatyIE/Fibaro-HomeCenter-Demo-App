@@ -8,13 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DetailLabel" parent="@style/TextAppearance.AppCompat.Title">
+    <style name="DetailLabel" parent="@style/TextAppearance.AppCompat.Large">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorDisableGreyDark</item>
     </style>
 
-    <style name="DeviceDetails" parent="@style/TextAppearance.AppCompat.Title">
+    <style name="DeviceDetails" parent="@style/TextAppearance.AppCompat.Large">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@android:color/black</item>
