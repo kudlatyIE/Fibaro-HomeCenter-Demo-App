@@ -17,7 +17,7 @@
     tools:context=".InfoActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/adapter_item_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
