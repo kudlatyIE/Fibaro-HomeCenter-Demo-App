@@ -3,6 +3,7 @@ package ie.droidfactory.fibarodemoapp.retrofit;
 import java.util.ArrayList;
 
 import ie.droidfactory.fibarodemoapp.model.Device;
+import rx.Observable;
 import retrofit.http.GET;
 import rx.Observable;
 

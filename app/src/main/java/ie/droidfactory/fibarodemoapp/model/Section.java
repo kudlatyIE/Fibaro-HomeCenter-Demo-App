@@ -26,7 +26,7 @@ public class Section implements FibaroObject{
         sectionsList.add(section);
     }
 
-    public static ArrayList<Section> getSestionsList(){
+    public static ArrayList<Section> getSectionsList(){
         return sectionsList;
     }
     public static void setSectionsList(ArrayList<Section> list){

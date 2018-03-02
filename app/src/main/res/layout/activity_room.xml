@@ -11,7 +11,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="12dp"
-    tools:context="ie.droidfactory.fibarodemoapp.RoomActivity">
+    tools:context="ie.droidfactory.fibarodemoapp.FragmentRoom">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/room_recyclerview"

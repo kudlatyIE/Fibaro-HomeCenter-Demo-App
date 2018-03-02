@@ -6,19 +6,15 @@ import ie.droidfactory.fibarodemoapp.model.Section;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import rx.Observable;
 
 import static ie.droidfactory.fibarodemoapp.retrofit.FibaroService.SERVICE_SECTIONS;
 
 /**
- * Created by kudlaty on 2018-02-18.
+ * Created by kudlaty on 2018-02-25.
  */
 
-public interface FibaroServiceSection {
+public interface FibaroServiceSection2 {
 
-
-    @retrofit.http.GET(SERVICE_SECTIONS)
-    Observable<ArrayList<Section>> getSection();
-//    @GET(SERVICE_SECTIONS)
-//    Call<ArrayList<Section>> getSection(@Header("Authorization") String authHeader);
+    @GET("/api/sections")
+    Call<ArrayList<Section>> getSection(@Header("Authorization") String authHeader);
 }

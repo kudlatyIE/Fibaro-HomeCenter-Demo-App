@@ -14,7 +14,7 @@
     android:paddingRight="@dimen/fibaro_medium_padding"
     android:paddingStart="@dimen/fibaro_medium_padding"
     android:paddingTop="@dimen/devices_detail_vertical_padding"
-    tools:context=".InfoActivity">
+    tools:context=".FragmentInfo">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

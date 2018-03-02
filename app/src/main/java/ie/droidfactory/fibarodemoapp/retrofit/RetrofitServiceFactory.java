@@ -1,9 +1,7 @@
 package ie.droidfactory.fibarodemoapp.retrofit;
 
-import android.accounts.AuthenticatorException;
 
 import com.squareup.okhttp.Authenticator;
-import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -20,16 +18,21 @@ import retrofit.client.OkClient;
 
 public class RetrofitServiceFactory {
 
+    private static final String TAG = RetrofitServiceFactory.class.getSimpleName();
+
+
+
     public static <T> T createRetrofitService(final Class<T> interfaceClass, final String endPoint, final String credentials) {
 
         Authenticator authenticator = new Authenticator() {
             int mCounter = 0;
             @Override
             public Request authenticate(Proxy proxy, Response response) throws IOException {
+//                response.code();
                 if(mCounter++>0){
                     return null;
                 }
-                return response.request().newBuilder().header("Authorization", credentials ).build();
+                return response.request().newBuilder().header("Authorization", credentials).build();
             }
 
             @Override

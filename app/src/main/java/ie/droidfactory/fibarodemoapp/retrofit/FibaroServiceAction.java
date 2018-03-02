@@ -1,6 +1,5 @@
 package ie.droidfactory.fibarodemoapp.retrofit;
 
-import ie.droidfactory.fibarodemoapp.model.Actions;
 import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;
@@ -8,6 +7,7 @@ import rx.Observable;
 import static ie.droidfactory.fibarodemoapp.retrofit.FibaroService.SERVICE_CALL_ACTION;
 
 /**
+ * Ahtung - server response is null!
  * Created by kudlaty on 2018-02-18.
  */
 
@@ -25,4 +25,6 @@ public interface FibaroServiceAction {
 
     @GET(SERVICE_CALL_ACTION)
     Observable<String> setActionDimmable(@Query(DEVICE_ID)int deviceId, @Query(NAME)String valueName, @Query(VALUE_DIMMABLE) int value);
+
+
 }

@@ -14,7 +14,7 @@
     android:paddingRight="16dp"
     android:paddingTop="12dp"
     android:background="@color/gray_marker"
-    tools:context=".DevicesListActivity">
+    tools:context=".FragmentDeviceList">
 
 
     <LinearLayout

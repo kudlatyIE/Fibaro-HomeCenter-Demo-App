@@ -10,7 +10,7 @@
     <string name="title_login">Home Center</string>
     <string name="title_section_name">Rooms in: </string>
     <string name="title_room_name">Devices in: </string>
-    <string name="title_device_details">device details</string>
+    <string name="title_device_details">Device:</string>
     <string name="turn_on_internet">please turn on internet connection</string>
     <string name="username_pass_request">user name or password can\'t be empty</string>
     <string name="user_name">user name</string>
@@ -18,5 +18,9 @@
     <string name="login">LOGIN</string>
     <string name="save_password">save password?</string>
     <string name="data_not_available">data not available</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_info">HC Info</string>
 
 </resources>

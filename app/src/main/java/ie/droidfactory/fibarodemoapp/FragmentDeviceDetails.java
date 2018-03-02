@@ -1,86 +1,108 @@
 package ie.droidfactory.fibarodemoapp;
 
 import android.app.Activity;
-
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 
 import ie.droidfactory.fibarodemoapp.model.Device;
+import ie.droidfactory.fibarodemoapp.model.FibaroType;
+import ie.droidfactory.fibarodemoapp.model.Room;
 import ie.droidfactory.fibarodemoapp.retrofit.FibaroService;
 import ie.droidfactory.fibarodemoapp.retrofit.FibaroServiceAction;
 import ie.droidfactory.fibarodemoapp.retrofit.RetrofitServiceFactory;
-import ie.droidfactory.fibarodemoapp.utils.FibaroSharedPref;
+import ie.droidfactory.fibarodemoapp.viewmodel.DeviceViewModel;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+/**
+ * Created by kudlaty on 2018-02-28.
+ */
 
-public class DeviceDetailsActivity extends AppCompatActivity {
+public class FragmentDeviceDetails extends Fragment {
 
-    private static final String TAG = DeviceDetailsActivity.class.getSimpleName();
+    private final static String TAG = FragmentDeviceDetails.class.getSimpleName();
 
+    public static final int REQUEST_CODE = 234;
+    private final static String KEY="object_index";
     private TextView tvName, tvType, tvValue;
     private FloatingActionButton fabOK;
     private Switch switchBinary;
     private NumberPicker numberPicker;
     private int devId=-1;
-    private int deviceIndex = -1;
+    private int deviceIndex = -1, index;
     private String value;
     private final static int PICKER_MAX = 100, PICKER_MIN=0;
     private final static String VALUE_ON="ON", VALUE_OFF="OFF";
 
-//    private ActivityMainBinding deviceDetailBinding;
+    private FibaroFragmentInterfaces mListener;
+//    private OnUpdateDeviceListener onUpdateDeviceListener;
+
+    public static FragmentDeviceDetails newInstance(FragmentDeviceList fragmentDeviceList, int deviceIndex){
+        FragmentDeviceDetails fragment = new FragmentDeviceDetails();
+        if(fragmentDeviceList!=null) fragment.setTargetFragment(fragmentDeviceList, REQUEST_CODE);
+        Bundle args = new Bundle();
+        args.putInt(KEY, deviceIndex);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_details);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_device_details, container, false);
+    }
 
-//        deviceDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_device_details);
-//        deviceDetailBinding..
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tvName = view.findViewById(R.id.device_details_text_name);
+        tvType = view.findViewById(R.id.device_details_text_type);
+        tvValue = view.findViewById(R.id.device_details_settings_text_display_value);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(getResources().getString(R.string.title_device_details));
-
-        tvName = findViewById(R.id.device_details_text_name);
-//        tvLocation = findViewById(R.id.device_details_text_location);
-        tvType = findViewById(R.id.device_details_text_type);
-        tvValue = findViewById(R.id.device_details_settings_text_display_value);
-
-        switchBinary = findViewById(R.id.device_details_settings_switch_binary);
-        numberPicker = findViewById(R.id.device_details_settings_picker_number);
-        fabOK = findViewById(R.id.device_details_settings_fab);
+        switchBinary = view.findViewById(R.id.device_details_settings_switch_binary);
+        numberPicker = view.findViewById(R.id.device_details_settings_picker_number);
+        fabOK = view.findViewById(R.id.device_details_settings_fab);
         numberPicker.setVisibility(View.GONE);
         switchBinary.setVisibility(View.GONE);
+    }
 
-        Bundle extras = getIntent().getExtras();
-        if(extras!=null){
-            deviceIndex = extras.getInt(DevicesListActivity.DEVICE_INDEX);
-            devId=Device.getDevicesList().get(deviceIndex).getId();
-            value = Device.getDevicesList().get(deviceIndex).getProperties().getValue();
-            devId = Device.getDevicesList().get(deviceIndex).getId();
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-            tvName.setText(Device.getDevicesList().get(deviceIndex).getName());
-//            tvLocation.setText(String.valueOf(Device.getDevicesList().get(deviceIndex).getRoomID()));
-            tvType.setText(Device.getDevicesList().get(deviceIndex).getType());
+        if (getArguments() != null) {
+            index = getArguments().getInt(KEY);
+            if(index>=0){
 
-        }
+                deviceIndex = index;
+                devId=Device.getDevicesList().get(deviceIndex).getId();
+                value = Device.getDevicesList().get(deviceIndex).getProperties().getValue();
+                devId = Device.getDevicesList().get(deviceIndex).getId();
+
+                tvName.setText(Device.getDevicesList().get(deviceIndex).getName());
+                tvType.setText(Device.getDevicesList().get(deviceIndex).getType());
+            }else mListener.loginResponse(false, "incorrect device index");
+
+        }else mListener.loginResponse(false, "missed device index");
 
         if(Device.getDevicesList().get(deviceIndex).getType().equals(Device.KEY_BINARY)){
 
@@ -148,10 +170,35 @@ public class DeviceDetailsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(index>=0) mListener.setActioneBar(getResources().getString(R.string.title_device_details)+" "+ Device.getDevicesList().get(index).getName(), true);
+    }
+
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try{
+            mListener = (FibaroFragmentInterfaces) context;
+        }catch(ClassCastException e){
+            throw new ClassCastException(context.toString()+ "loginCallback Listener is not " +
+                    "implemented...");
+        }
+
+    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     private void setDeviceValueBinary(String credentials, final int deviceId, final String deviceValue){
         FibaroServiceAction service = RetrofitServiceFactory.createRetrofitService(FibaroServiceAction.class, FibaroService.SERVICE_ENDPOINT, credentials);
-
+        Log.d(TAG, "set BINARY: "+deviceValue);
 
         service.setActionBinary(deviceId, deviceValue)
                 .subscribeOn(Schedulers.newThread())
@@ -160,13 +207,10 @@ public class DeviceDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onCompleted() {
-
-                        Intent intent = new Intent();
-                        intent.putExtra("index", deviceIndex);
-                        intent.putExtra("value",value);
-                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
+                        Log.d(TAG, "set value, on Completed: "+value);
+//                        onUpdateDeviceListener.onUpdateSuccess(deviceIndex, value);
+                        getTargetFragment().onActivityResult(REQUEST_CODE, Activity.RESULT_OK, createIntentData(deviceIndex, value));
+                        mListener.onDeviceNewValueAction();
 
                     }
 
@@ -174,11 +218,8 @@ public class DeviceDetailsActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Log.d(TAG, e.getMessage());
-                        Intent intent = new Intent();
-                        intent.putExtra("error", e.getMessage());
-                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
+//                        onUpdateDeviceListener.onUpdateFail(e.getMessage());
+                        Toast.makeText(getContext(), "Err: "+e.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -199,12 +240,10 @@ public class DeviceDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onCompleted() {
-                        Intent intent = new Intent();
-                        intent.putExtra("index", deviceIndex);
-                        intent.putExtra("value",value);
-                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
+//                        onUpdateDeviceListener.onUpdateSuccess(deviceIndex, value);
+//                        getActivity().getSupportFragmentManager().popBackStack();
+                        getTargetFragment().onActivityResult(REQUEST_CODE, Activity.RESULT_OK, createIntentData(deviceIndex, value));
+                        mListener.onDeviceNewValueAction();
 
                     }
 
@@ -212,11 +251,8 @@ public class DeviceDetailsActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Log.d(TAG, e.getMessage());
-                        Intent intent = new Intent();
-                        intent.putExtra("error", e.getMessage());
-                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
+//                        onUpdateDeviceListener.onUpdateFail(e.getMessage());
+                        Toast.makeText(getContext(), "Err: "+e.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -226,29 +262,15 @@ public class DeviceDetailsActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_basic, menu);
-        return true;
+    private Intent createIntentData(int index, String value){
+        Intent intent = new Intent();
+        intent.putExtra("index", index);
+        intent.putExtra("value", value);
+        return intent;
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.menu_item_info:
-                startActivity(new Intent(this, InfoActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                break;
-            case R.id.menu_item_logout:
-                FibaroSharedPref.setCredentials(this, null);
-                startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    public interface OnUpdateDeviceListener{
+//        void onUpdateSuccess(int deviceIndex, String newValue);
+//        void onUpdateFail(String errorMessage);
+//    }
 }
