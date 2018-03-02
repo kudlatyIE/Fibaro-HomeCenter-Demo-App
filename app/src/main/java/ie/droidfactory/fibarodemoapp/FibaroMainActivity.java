@@ -69,7 +69,7 @@ public class FibaroMainActivity extends AppCompatActivity implements FibaroFragm
 
             ft = getSupportFragmentManager().beginTransaction();
             mainFragment = setMainFragment(key, message, objectId);
-            ft.add(R.id.main_fragment_container, mainFragment, key).addToBackStack(TAG_STACK).commit();
+            ft.replace(R.id.main_fragment_container, mainFragment, key).addToBackStack(TAG_STACK).commit();
             getSupportFragmentManager().executePendingTransactions();
 
         }
