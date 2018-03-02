@@ -4,9 +4,9 @@ Display sections, rooms and list of device in selected room.
 
 Used technologies:
 - RxJava,
-- refrofit
+- Refrofit
 - Android ViewModel
 - RecyclerView
-- rebulding app to use fragments in progress
+- Fragments
 
 Nikodem Walicki (kudlatyIE)
